@@ -46,6 +46,16 @@
        document.getElementById('app')
    );
 
+   var Counter = React.createClass({
+       name: 'Counter',
+       propTypes: {
+           count: React.PropTypes.number.isRequired,
+       },
+       render: function() {
+           return React.DOM.span(null, this.props.count);
+       }
+   });
+   
    var TextAreaCounter = React.createClass({
        propTypes: {
            text: React.PropTypes.string,
@@ -72,13 +82,23 @@
        },
        
        render: function() {
+           var counter = null;
+           if (this.state.text.length > 0) {
+               counter = React.DOM.h3(
+                   null,
+                   React.createElement(Counter, {
+                       count: this.state.text.length,
+                   })
+               );
+           }
+           
            return React.DOM.div(
                null,
                React.DOM.textarea({
                    value: this.state.text,
                    onChange: this._textChange, // onChangeにイベント設定
                }),
-               React.DOM.h3(null, this.state.text.length)
+               counter
            );
        }
    });
