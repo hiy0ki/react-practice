@@ -14,6 +14,12 @@
   <script src="https://fb.me/react-dom-15.2.0.js"></script>
   <script>
    var Component = React.createClass({
+       // 型定義ができる validationにもなる
+       // warningがでる 描画が停止するわけではない
+       propTypes: {
+           name: React.PropTypes.string.isRequired,
+           num: React.PropTypes.number.isRequired,
+       },
        render: function() {
            return React.DOM.span(null, "カスタムコンポーネント and " + this.props.name + " " + this.props.num);
        }
@@ -21,11 +27,13 @@
    
    ReactDOM.render(
        React.createElement(Component,{
-           name: "property hoge",
+           // name: 999, // warningがでる
+           name: "hogehoge",
+           // num: "hoge" // warningがでる
            num: 101010
        }),
-      document.getElementById('app')
-    );
+       document.getElementById('app')
+   );
   </script>
   <!--
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
