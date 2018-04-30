@@ -20,6 +20,15 @@
            name: React.PropTypes.string.isRequired,
            num: React.PropTypes.number.isRequired,
        },
+
+       // default設定 初期値はこれを使用される
+       getDefaultProps: function() {
+           return {
+               name: "default name",
+               num: 0
+           };
+       },
+       
        render: function() {
            return React.DOM.span(null, "カスタムコンポーネント and " + this.props.name + " " + this.props.num);
        }
