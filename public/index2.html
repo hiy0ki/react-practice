@@ -15,12 +15,15 @@
   <script>
    var Component = React.createClass({
        render: function() {
-           return React.DOM.span(null, "カスタムコンポーネント");
+           return React.DOM.span(null, "カスタムコンポーネント and " + this.props.name + " " + this.props.num);
        }
    });
    
    ReactDOM.render(
-       React.createElement(Component),
+       React.createElement(Component,{
+           name: "property hoge",
+           num: 101010
+       }),
       document.getElementById('app')
     );
   </script>
