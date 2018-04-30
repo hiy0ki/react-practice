@@ -10,6 +10,8 @@
 
   <div id="app"></div>
 
+  <div id="app2"></div>
+
   <script src="https://fb.me/react-15.2.0.js"></script>
   <script src="https://fb.me/react-dom-15.2.0.js"></script>
   <script>
@@ -33,7 +35,7 @@
            return React.DOM.span(null, "カスタムコンポーネント and " + this.props.name + " " + this.props.num);
        }
    });
-   
+
    ReactDOM.render(
        React.createElement(Component,{
            // name: 999, // warningがでる
@@ -42,6 +44,50 @@
            num: 101010
        }),
        document.getElementById('app')
+   );
+
+   var TextAreaCounter = React.createClass({
+       propTypes: {
+           text: React.PropTypes.string,
+       },
+
+       getDefaultProps: function() {
+           return {
+               text: ''
+           };
+       },
+
+       // stateの初期値
+       getInitialState: function() {
+           return {
+               text: this.props.text, // この書き方はアンチパターン render()時に使う側がstateとpropsを自由に併用したい
+           };
+       },
+
+       // 独自で設定したイベントリスナー
+       _textChange: function(ev) {
+           this.setState({
+               text: ev.target.value
+           });
+       },
+       
+       render: function() {
+           return React.DOM.div(
+               null,
+               React.DOM.textarea({
+                   value: this.state.text,
+                   onChange: this._textChange, // onChangeにイベント設定
+               }),
+               React.DOM.h3(null, this.state.text.length)
+           );
+       }
+   });
+
+   ReactDOM.render(
+       React.createElement(TextAreaCounter, {
+           text: "Bob",
+       }),
+       document.getElementById("app2")
    );
   </script>
   <!--
